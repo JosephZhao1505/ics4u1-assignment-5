@@ -1,29 +1,40 @@
 import type { ReactNode } from 'react';
-import { NavLink, useMatch } from 'react-router-dom';
+import { matchPath, NavLink, useLocation } from 'react-router-dom';
 
 type LinkProps = {
   children: ReactNode;
   to: string;
-  match?: string;
+  match?: string[];
 };
 
-export const Link = ({ children, to, match }: LinkProps) => {
-  const matchResult = useMatch({ path: match || '' });
-  const isMatched = !!match && !!matchResult;
+const baseStyles = 'relative px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:text-white';
+
+export const Link = ({ children, to, match = [] }: LinkProps) => {
+  const { pathname } = useLocation();
+  const matched = match.some((pattern) => matchPath({ path: pattern, end: false }, pathname));
 
   return (
     <NavLink
       replace
       to={to}
-      className={({ isActive }) =>
-        `rounded-md border px-4 py-1 transition-all duration-200 ${
-          isActive || isMatched
-            ? 'scale-105 border-white bg-white text-gray-900 shadow-lg'
-            : 'border-gray-700 bg-gray-700 text-gray-300 hover:border-gray-500 hover:bg-gray-600 hover:text-white'
-        }`
-      }
+      className={({ isActive }) => {
+        const isCurrent = isActive || matched;
+        return `${baseStyles} ${isCurrent ? 'text-white' : 'text-slate-400'}`;
+      }}
     >
-      {children}
+      {({ isActive }) => {
+        const isCurrent = isActive || matched;
+        return (
+          <>
+            {children}
+            <span
+              className={`absolute bottom-0 left-0 h-0.5 bg-indigo-500 transition-all duration-300 ${
+                isCurrent ? 'w-full opacity-100' : 'w-0 opacity-0'
+              }`}
+            />
+          </>
+        );
+      }}
     </NavLink>
   );
 };

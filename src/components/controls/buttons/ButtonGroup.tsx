@@ -11,9 +11,9 @@ type ButtonGroupProps = {
 
 export const ButtonGroup = ({ value, options, onClick }: ButtonGroupProps) => {
   return (
-    <div className="flex gap-3">
+    <div className="flex items-center gap-2">
       {options.map((option) => (
-        <Button key={option.value} onClick={() => onClick(option.value)} variant={value === option.value ? 'primary' : 'grey'}>
+        <Button key={option.value} onClick={() => onClick(option.value)} variant={value === option.value ? 'primary' : 'secondary'}>
           {option.label}
         </Button>
       ))}

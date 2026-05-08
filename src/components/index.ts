@@ -6,4 +6,6 @@ export * from '@/components/controls/links/LinkGroup';
 export * from '@/components/controls/Pagination';
 export * from '@/components/controls/SearchBar';
 export * from '@/components/site/DetailItem';
+export * from '@/components/site/Footer';
+export * from '@/components/site/Header';
 export * from '@/components/site/Modal';

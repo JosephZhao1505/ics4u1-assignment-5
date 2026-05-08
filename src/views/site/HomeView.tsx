@@ -1,18 +1,40 @@
-import { Button } from '@/components';
+import { Footer } from '@/components';
+import { HiFilm, HiFire } from 'react-icons/hi';
+import { HiRectangleGroup, HiTv } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 
 export const HomeView = () => {
   const navigate = useNavigate();
 
+  const menuItems = [
+    { label: 'Movies', path: '/movies/now-playing', icon: <HiFilm className="h-10 w-10" /> },
+    { label: 'TV', path: '/tv/airing-today', icon: <HiTv className="h-10 w-10" /> },
+    { label: 'Trending', path: '/trending/movie?interval=day', icon: <HiFire className="h-10 w-10" /> },
+    { label: 'Genres', path: '/genres', icon: <HiRectangleGroup className="h-10 w-10" /> },
+  ];
+
   return (
-    <div className="flex min-h-screen flex-col bg-gray-900 text-white">
-      <main className="mx-auto flex max-w-7xl flex-1 flex-col items-center justify-center px-4">
-        <section className="space-y-8 text-center">
-          <h1 className="text-5xl font-bold tracking-tight">TMDB Explorer</h1>
-          <p className="text-lg text-gray-400">Explore movies and discover people using a fast, modern interface.</p>
-          <Button onClick={() => navigate('/')}>Enter</Button>
+    <div className="flex min-h-screen flex-col bg-[#0f172a]">
+      <main className="flex grow items-center justify-center p-6">
+        <section className="grid w-full max-w-4xl grid-cols-1 gap-8 sm:grid-cols-2">
+          {menuItems.map((item) => (
+            <button
+              key={item.label}
+              onClick={() => navigate(item.path)}
+              className="group relative flex h-56 cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/50 transition-all duration-500 hover:border-indigo-500/50 hover:bg-slate-800 hover:shadow-[0_0_30px_-10px_rgba(99,102,241,0.3)]"
+            >
+              <div className="absolute inset-0 bg-linear-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+              <div className="rounded-2xl bg-slate-800 p-5 text-slate-400 transition-all duration-300 group-hover:scale-110 group-hover:text-indigo-400">
+                {item.icon}
+              </div>
+
+              <span className="text-2xl font-bold tracking-tight text-slate-300 group-hover:text-white">{item.label}</span>
+            </button>
+          ))}
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

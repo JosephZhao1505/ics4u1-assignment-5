@@ -4,18 +4,18 @@ type LinkGroupProps = {
   options: Array<{
     label: string;
     to: string;
-    match?: string;
+    match?: string[];
   }>;
 };
 
 export const LinkGroup = ({ options }: LinkGroupProps) => {
   return (
-    <nav className="flex gap-3">
+    <div className="flex gap-6">
       {options.map((option) => (
         <Link key={option.label} to={option.to} match={option.match}>
           {option.label}
         </Link>
       ))}
-    </nav>
+    </div>
   );
 };
