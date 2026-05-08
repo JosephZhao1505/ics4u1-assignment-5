@@ -1,16 +1,16 @@
-import { App } from '@/App.tsx';
-import { UserProvider } from '@/context';
-import '@/index.css';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { App } from "@/App.tsx";
+import { UserProvider } from "@/context";
+import "@/index.css";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
         <App />
       </UserProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

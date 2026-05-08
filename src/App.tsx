@@ -1,4 +1,5 @@
-import { MainLayout } from '@/layouts/MainLayout';
+import { Route, Routes } from "react-router-dom";
+import { MainLayout } from "@/layouts/MainLayout";
 import {
   CareerView,
   CreditsView,
@@ -17,33 +18,32 @@ import {
   TelevisionListsView,
   TrailersView,
   TrendingView,
-} from '@/views';
-import { Route, Routes } from 'react-router-dom';
+} from "@/views";
 
 export const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<LandingPageView />} />
+      <Route element={<LandingPageView />} path="/" />
       <Route element={<MainLayout />}>
-        <Route path="/home" element={<HomeView />} />
-        <Route path="/movies/:listType" element={<MovieListsView />} />
-        <Route path="/tv/:listType" element={<TelevisionListsView />} />
-        <Route path="/trending/:mediaType" element={<TrendingView />} />
-        <Route path="/genre/:mediaType/:genre" element={<GenreView />} />
-        <Route path="/search" element={<SearchView />} />
-        <Route path="/:mediaType/:id" element={<MovieView />}>
-          <Route path="credits" element={<CreditsView />} />
-          <Route path="reviews" element={<ReviewsView />} />
-          <Route path="trailers" element={<TrailersView />} />
-          <Route path="seasons" element={<SeasonsView />} />
-          <Route path="season/:seasonNumber" element={<EpisodeView />} />
+        <Route element={<HomeView />} path="/home" />
+        <Route element={<MovieListsView />} path="/movies/:listType" />
+        <Route element={<TelevisionListsView />} path="/tv/:listType" />
+        <Route element={<TrendingView />} path="/trending/:mediaType" />
+        <Route element={<GenreView />} path="/genre/:mediaType/:genre" />
+        <Route element={<SearchView />} path="/search" />
+        <Route element={<MovieView />} path="/:mediaType/:id">
+          <Route element={<CreditsView />} path="credits" />
+          <Route element={<ReviewsView />} path="reviews" />
+          <Route element={<TrailersView />} path="trailers" />
+          <Route element={<SeasonsView />} path="seasons" />
+          <Route element={<EpisodeView />} path="season/:seasonNumber" />
         </Route>
-        <Route path="/person/:id" element={<PersonView />}>
-          <Route path="career" element={<CareerView />} />
-          <Route path="images" element={<ImagesView />} />
+        <Route element={<PersonView />} path="/person/:id">
+          <Route element={<CareerView />} path="career" />
+          <Route element={<ImagesView />} path="images" />
         </Route>
       </Route>
-      <Route path="*" element={<ErrorView />} />
+      <Route element={<ErrorView />} path="*" />
     </Routes>
   );
 };

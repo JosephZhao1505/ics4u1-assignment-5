@@ -1,9 +1,9 @@
-import { Button, LinkGroup } from '@/components';
-import type { PersonResponse } from '@/core';
-import { IMAGE_BASE_URL, PERSON_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { FaBirthdayCake, FaChevronLeft, FaLocationArrow } from 'react-icons/fa';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { FaBirthdayCake, FaChevronLeft, FaLocationArrow } from "react-icons/fa";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Button, LinkGroup } from "@/components";
+import type { PersonResponse } from "@/core";
+import { IMAGE_BASE_URL, PERSON_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const PersonView = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export const PersonView = () => {
     <main className="min-h-screen bg-slate-950 pb-20 text-slate-200">
       <div className="container mx-auto px-4 pt-8">
         <div className="mb-8">
-          <Button variant="secondary" onClick={() => navigate(-1)}>
+          <Button onClick={() => navigate(-1)} variant="secondary">
             <div className="flex items-center gap-2">
               <FaChevronLeft className="h-3 w-3" />
               <span>Back</span>
@@ -34,7 +34,7 @@ export const PersonView = () => {
           <aside className="w-full shrink-0 md:w-1/3 lg:w-1/4">
             <div className="sticky top-24">
               <div className="mb-6 overflow-hidden rounded-3xl border border-slate-800 shadow-2xl">
-                <img src={`${IMAGE_BASE_URL}${data.profile_path}`} alt={data.name} className="h-auto w-full object-cover" />
+                <img alt={data.name} className="h-auto w-full object-cover" src={`${IMAGE_BASE_URL}${data.profile_path}`} />
               </div>
 
               <div className="space-y-4 px-2">
@@ -51,20 +51,20 @@ export const PersonView = () => {
           </aside>
 
           <section className="min-w-0 flex-1">
-            <h1 className="mb-6 text-4xl font-black tracking-tight text-white md:text-6xl">{data.name}</h1>
+            <h1 className="mb-6 font-black text-4xl text-white tracking-tight md:text-6xl">{data.name}</h1>
 
             <div className="mb-10">
-              <h2 className="mb-3 text-lg font-bold tracking-widest text-indigo-400 uppercase">Biography</h2>
-              <p className="max-w-3xl text-lg leading-relaxed whitespace-pre-line text-slate-400">
-                {data.biography || 'No biography available for this person.'}
+              <h2 className="mb-3 font-bold text-indigo-400 text-lg uppercase tracking-widest">Biography</h2>
+              <p className="max-w-3xl whitespace-pre-line text-lg text-slate-400 leading-relaxed">
+                {data.biography || "No biography available for this person."}
               </p>
             </div>
 
-            <div className="mb-8 border-b border-slate-800">
+            <div className="mb-8 border-slate-800 border-b">
               <LinkGroup
                 options={[
-                  { label: 'Career', to: 'career' },
-                  { label: 'Images', to: 'images' },
+                  { label: "Career", to: "career" },
+                  { label: "Images", to: "images" },
                 ]}
               />
             </div>

@@ -1,8 +1,8 @@
-import { ImageGrid } from '@/components';
-import type { PersonCareerResponse } from '@/core';
-import { PERSON_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import { ImageGrid } from "@/components";
+import type { PersonCareerResponse } from "@/core";
+import { PERSON_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const CareerView = () => {
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ export const CareerView = () => {
 
   return (
     <section className="px-2">
-      <h2 className="mb-6 text-2xl font-bold">Career</h2>
+      <h2 className="mb-6 font-bold text-2xl">Career</h2>
       {data.cast.length ? (
-        <ImageGrid results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)} />
+        <ImageGrid onClick={(id) => navigate(`/movie/${id}/credits`)} results={gridData} />
       ) : (
         <p className="text-center text-gray-400">No career available.</p>
       )}

@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { HiX } from 'react-icons/hi';
+import type { ReactNode } from "react";
+import { HiX } from "react-icons/hi";
 
 type ModalProps = {
   onClose: () => void;
@@ -14,8 +14,8 @@ export const Modal = ({ onClose, children }: ModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={onClose}
           className="absolute top-6 right-6 z-50 rounded-full border border-slate-700/50 bg-slate-950/50 p-2.5 text-slate-400 transition-all hover:bg-indigo-600 hover:text-white"
+          onClick={onClose}
         >
           <HiX className="h-6 w-6" />
         </button>

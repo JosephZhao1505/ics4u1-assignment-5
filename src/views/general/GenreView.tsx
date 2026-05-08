@@ -1,34 +1,34 @@
-import { Footer, ImageGrid, Link, LinkGroup, Pagination } from '@/components';
-import type { MoviesResponse, TvsResponse } from '@/core';
-import { DISCOVER_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Footer, ImageGrid, Link, LinkGroup, Pagination } from "@/components";
+import type { MoviesResponse, TvsResponse } from "@/core";
+import { DISCOVER_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 const MOVIE_GENRES = [
-  { name: 'Action', id: 28 },
-  { name: 'Adventure', id: 12 },
-  { name: 'Animation', id: 16 },
-  { name: 'Crime', id: 80 },
-  { name: 'Family', id: 10751 },
-  { name: 'Fantasy', id: 14 },
-  { name: 'History', id: 36 },
-  { name: 'Horror', id: 27 },
-  { name: 'Mystery', id: 9648 },
-  { name: 'Sci-Fi', id: 878 },
+  { id: 28, name: "Action" },
+  { id: 12, name: "Adventure" },
+  { id: 16, name: "Animation" },
+  { id: 80, name: "Crime" },
+  { id: 10751, name: "Family" },
+  { id: 14, name: "Fantasy" },
+  { id: 36, name: "History" },
+  { id: 27, name: "Horror" },
+  { id: 9648, name: "Mystery" },
+  { id: 878, name: "Sci-Fi" },
 ];
 
 const TV_GENRES = [
-  { name: 'Action', id: 10759 },
-  { name: 'Animation', id: 16 },
-  { name: 'Comedy', id: 35 },
-  { name: 'Crime', id: 80 },
-  { name: 'Documentary', id: 99 },
-  { name: 'Drama', id: 18 },
-  { name: 'Family', id: 10751 },
-  { name: 'Kids', id: 10762 },
-  { name: 'Mystery', id: 9648 },
-  { name: 'Sci-Fi', id: 10765 },
+  { id: 10759, name: "Action" },
+  { id: 16, name: "Animation" },
+  { id: 35, name: "Comedy" },
+  { id: 80, name: "Crime" },
+  { id: 99, name: "Documentary" },
+  { id: 18, name: "Drama" },
+  { id: 10751, name: "Family" },
+  { id: 10762, name: "Kids" },
+  { id: 9648, name: "Mystery" },
+  { id: 10765, name: "Sci-Fi" },
 ];
 
 export const GenreView = () => {
@@ -36,7 +36,7 @@ export const GenreView = () => {
   const [page, setPage] = useState<number>(1);
   const { mediaType } = useParams<{ mediaType: string }>();
   const { genre } = useParams<{ genre: string }>();
-  const genres = mediaType === 'movie' ? MOVIE_GENRES : TV_GENRES;
+  const genres = mediaType === "movie" ? MOVIE_GENRES : TV_GENRES;
   const activeGenre = genres.find((index) => index.name.toLowerCase() === genre) || genres[0];
 
   const ENDPOINT = `${DISCOVER_ENDPOINT}/${mediaType}`;
@@ -52,7 +52,7 @@ export const GenreView = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
-  }, [mediaType, genre]);
+  }, []);
 
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -61,10 +61,10 @@ export const GenreView = () => {
   return (
     <section className="mx-auto max-w-300 space-y-5 py-5">
       <div className="flex gap-3">
-        <Link to="/genre/movie/action" match={['/genre/movie/:genre']}>
+        <Link match={["/genre/movie/:genre"]} to="/genre/movie/action">
           Movies
         </Link>
-        <Link to="/genre/tv/action" match={['/genre/tv/:genre']}>
+        <Link match={["/genre/tv/:genre"]} to="/genre/tv/action">
           TV
         </Link>
       </div>
@@ -75,13 +75,13 @@ export const GenreView = () => {
         }))}
       />
       <ImageGrid
-        results={gridData}
         onClick={(id) => {
-          const firstTab = mediaType === 'movie' ? 'credits' : 'seasons';
+          const firstTab = mediaType === "movie" ? "credits" : "seasons";
           navigate(`/${mediaType}/${id}/${firstTab}`);
         }}
+        results={gridData}
       />
-      <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
+      <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />
     </section>
   );

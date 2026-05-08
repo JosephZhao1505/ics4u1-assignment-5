@@ -1,8 +1,8 @@
-import { ImageGrid } from '@/components';
-import type { MediaResponse } from '@/core';
-import { TELEVISION_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import { ImageGrid } from "@/components";
+import type { MediaResponse } from "@/core";
+import { TELEVISION_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const SeasonsView = () => {
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ export const SeasonsView = () => {
 
   return (
     <section className="px-2">
-      <h2 className="mb-6 text-2xl font-bold">Seasons</h2>
+      <h2 className="mb-6 font-bold text-2xl">Seasons</h2>
       {data.seasons?.length ? (
-        <ImageGrid results={gridData} onClick={(season_number) => navigate(`/tv/${id}/season/${season_number}`)} />
+        <ImageGrid onClick={(season_number) => navigate(`/tv/${id}/season/${season_number}`)} results={gridData} />
       ) : (
         <p className="text-center text-gray-400">No seasons available.</p>
       )}

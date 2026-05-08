@@ -1,9 +1,9 @@
-import { ImageGrid } from '@/components';
-import type { SeasonsResponse } from '@/core';
-import { TELEVISION_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { FaCalendarAlt } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { FaCalendarAlt } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { ImageGrid } from "@/components";
+import type { SeasonsResponse } from "@/core";
+import { TELEVISION_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const EpisodeView = () => {
   const { id, seasonNumber } = useParams();
@@ -23,13 +23,13 @@ export const EpisodeView = () => {
   return (
     <section className="px-2">
       <div className="flex-1 space-y-4">
-        <h1 className="text-3xl font-bold">{data?.name}</h1>
+        <h1 className="font-bold text-3xl">{data?.name}</h1>
         <p className="flex items-center gap-2 text-gray-400">
           <FaCalendarAlt />
           {data?.air_date}
         </p>
         <p className="text-gray-300">{data.overview}</p>
-        <h3 className="text-2xl font-bold">Episodes</h3>
+        <h3 className="font-bold text-2xl">Episodes</h3>
         {data.episodes?.length ? <ImageGrid results={gridData} /> : <p className="text-center text-gray-400">No episodes available.</p>}
       </div>
     </section>

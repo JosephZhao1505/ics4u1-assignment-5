@@ -1,8 +1,8 @@
-import { ImageGrid } from '@/components';
-import type { PersonImagesResponse } from '@/core';
-import { PERSON_ENDPOINT } from '@/core';
-import { useTmdb } from '@/hooks';
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { ImageGrid } from "@/components";
+import type { PersonImagesResponse } from "@/core";
+import { PERSON_ENDPOINT } from "@/core";
+import { useTmdb } from "@/hooks";
 
 export const ImagesView = () => {
   const { id } = useParams();
@@ -11,8 +11,8 @@ export const ImagesView = () => {
   const gridData = (data?.profiles ?? []).map((result) => ({
     id: result.id,
     imagePath: result.file_path,
-    primaryText: '',
-    secondaryText: '',
+    primaryText: "",
+    secondaryText: "",
   }));
 
   if (!data) {
@@ -21,7 +21,7 @@ export const ImagesView = () => {
 
   return (
     <section className="px-2">
-      <h2 className="mb-6 text-2xl font-bold">Images</h2>
+      <h2 className="mb-6 font-bold text-2xl">Images</h2>
       {data.profiles.length ? <ImageGrid results={gridData} /> : <p className="text-center text-gray-400">No images available.</p>}
     </section>
   );

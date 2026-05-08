@@ -1,5 +1,5 @@
-import { Header } from '@/components/site/Header';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import { Header } from "@/components/site/Header";
 
 export const MainLayout = () => {
   return (
