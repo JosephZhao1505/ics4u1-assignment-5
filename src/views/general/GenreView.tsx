@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Footer, ImageGrid, Link, LinkGroup, Pagination } from "@/components";
-import type { MoviesResponse, TvsResponse } from "@/core";
-import { DISCOVER_ENDPOINT } from "@/core";
+import type { ImageCell, MediaItem, MediaResponse } from "@/core";
+import { DISCOVER_ENDPOINT, getImageUrl } from "@/core";
 import { useTmdb } from "@/hooks";
 
 const MOVIE_GENRES = [
@@ -40,17 +40,15 @@ export const GenreView = () => {
   const activeGenre = genres.find((index) => index.name.toLowerCase() === genre) || genres[0];
 
   const ENDPOINT = `${DISCOVER_ENDPOINT}/${mediaType}`;
-  const { data } = useTmdb<MoviesResponse | TvsResponse>(ENDPOINT, { page, with_genres: activeGenre.id });
+  const { data } = useTmdb<MediaResponse>(ENDPOINT, { page, with_genres: activeGenre.id });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const gridData = (data?.results ?? []).map((result: any) => ({
+  const gridData: ImageCell[] = (data?.results ?? []).map((result: MediaItem) => ({
     id: result.id,
-    imagePath: result.poster_path,
-    primaryText: result.title || result.name,
+    imageUrl: getImageUrl(result.poster_path),
+    primaryText: result.original_title || result.name || "Untitled",
   }));
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, []);
 
@@ -75,11 +73,11 @@ export const GenreView = () => {
         }))}
       />
       <ImageGrid
+        images={gridData}
         onClick={(id) => {
           const firstTab = mediaType === "movie" ? "credits" : "seasons";
           navigate(`/${mediaType}/${id}/${firstTab}`);
         }}
-        results={gridData}
       />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />

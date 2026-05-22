@@ -2,7 +2,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { ImageGrid } from "@/components";
 import type { SeasonsResponse } from "@/core";
-import { TELEVISION_ENDPOINT } from "@/core";
+import { getImageUrl, TELEVISION_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const EpisodeView = () => {
@@ -11,7 +11,7 @@ export const EpisodeView = () => {
 
   const gridData = (data?.episodes ?? []).map((result) => ({
     id: result.id,
-    imagePath: result.still_path,
+    imageUrl: getImageUrl(result.still_path),
     primaryText: result.name,
     secondaryText: result.air_date,
   }));
@@ -30,7 +30,7 @@ export const EpisodeView = () => {
         </p>
         <p className="text-gray-300">{data.overview}</p>
         <h3 className="font-bold text-2xl">Episodes</h3>
-        {data.episodes?.length ? <ImageGrid results={gridData} /> : <p className="text-center text-gray-400">No episodes available.</p>}
+        {data.episodes?.length ? <ImageGrid images={gridData} /> : <p className="text-center text-gray-400">No episodes available.</p>}
       </div>
     </section>
   );

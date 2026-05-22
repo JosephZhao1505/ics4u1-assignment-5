@@ -2,9 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "@/layouts/MainLayout";
 import {
   CareerView,
+  CartView,
   CreditsView,
   EpisodeView,
   ErrorView,
+  FavoritesView,
   GenreView,
   HomeView,
   ImagesView,
@@ -15,6 +17,7 @@ import {
   ReviewsView,
   SearchView,
   SeasonsView,
+  SettingsView,
   TelevisionListsView,
   TrailersView,
   TrendingView,
@@ -26,6 +29,9 @@ export const App = () => {
       <Route element={<LandingPageView />} path="/" />
       <Route element={<MainLayout />}>
         <Route element={<HomeView />} path="/home" />
+        <Route element={<FavoritesView />} path="/favorites" />
+        <Route element={<CartView />} path="/cart" />
+        <Route element={<SettingsView />} path="/settings" />
         <Route element={<MovieListsView />} path="/movies/:listType" />
         <Route element={<TelevisionListsView />} path="/tv/:listType" />
         <Route element={<TrendingView />} path="/trending/:mediaType" />

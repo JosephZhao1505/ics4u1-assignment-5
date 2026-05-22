@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Footer, ImageGrid, Pagination } from "@/components";
-import type { SearchResponse } from "@/core";
-import { SEARCH_ENDPOINT } from "@/core";
+import type { ImageCell, SearchResponse } from "@/core";
+import { getImageUrl, SEARCH_ENDPOINT } from "@/core";
 import { useDebounce, useTmdb } from "@/hooks";
 
 export const SearchView = () => {
@@ -15,15 +15,13 @@ export const SearchView = () => {
   const { data } = useTmdb<SearchResponse>(`${SEARCH_ENDPOINT}/${searchType}`, { page, query: debouncedQuery });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const gridData = (data?.results ?? []).map((result): any => ({
+  const gridData: ImageCell[] = (data?.results ?? []).map((result) => ({
     id: result.id,
-    imagePath: result.profile_path || result.poster_path,
-    primaryText: result.name || result.title,
+    imageUrl: getImageUrl(result.poster_path ?? ""),
+    primaryText: result.original_title || result.name || "Untitled",
   }));
 
   if (!data) {
@@ -34,11 +32,11 @@ export const SearchView = () => {
     <section className="mx-auto max-w-300 space-y-5 p-10">
       <h1 className="font-bold text-3xl text-white">Search for: {query}</h1>
       <ImageGrid
-        onClick={(id) => {
+        images={gridData}
+        onClick={(image) => {
           const firstTab = searchType === "movie" ? "credits" : searchType === "tv" ? "seasons" : "career";
-          navigate(`/${searchType}/${id}/${firstTab}`);
+          navigate(`/${searchType}/${image.id}/${firstTab}`);
         }}
-        results={gridData}
       />
       {data.results.length ? (
         <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />

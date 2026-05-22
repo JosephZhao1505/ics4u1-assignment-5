@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Footer, ImageGrid, LinkGroup, Pagination } from "@/components";
-import type { TvsResponse } from "@/core";
-import { TELEVISION_ENDPOINT } from "@/core";
+import type { MediaResponse } from "@/core";
+import { getImageUrl, TELEVISION_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const TelevisionListsView = () => {
@@ -13,17 +13,16 @@ export const TelevisionListsView = () => {
   const list = listType || "airing-today";
   const formattedList = list.replace("-", "_");
 
-  const { data } = useTmdb<TvsResponse>(`${TELEVISION_ENDPOINT}/${formattedList}`, { page });
+  const { data } = useTmdb<MediaResponse>(`${TELEVISION_ENDPOINT}/${formattedList}`, { page });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, []);
 
   const gridData = useMemo(() => {
     return (data?.results ?? []).map((result) => ({
       id: result.id,
-      imagePath: result.poster_path,
+      imageUrl: getImageUrl(result.poster_path),
       primaryText: result.name,
     }));
   }, [data?.results]);
@@ -44,7 +43,7 @@ export const TelevisionListsView = () => {
           ]}
         />
       </div>
-      <ImageGrid onClick={(id) => navigate(`/tv/${id}/seasons`)} results={gridData} />
+      <ImageGrid images={gridData} onClick={(image) => navigate(`/tv/${image.id}/seasons`)} />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />
     </section>

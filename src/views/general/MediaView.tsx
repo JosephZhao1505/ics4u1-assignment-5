@@ -56,7 +56,9 @@ export const MovieView = () => {
             />
           </div>
         </div>
-        <Outlet />
+        <div className="min-h-80 border-gray-800 border-t pt-6">
+          <Outlet />
+        </div>
       </div>
     </Modal>
   );

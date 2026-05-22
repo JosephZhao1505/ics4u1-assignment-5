@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ButtonGroup, Footer, ImageGrid, LinkGroup, Pagination } from "@/components";
-import type { MoviesResponse, TvsResponse } from "@/core";
-import { TRENDING_ENDPOINT } from "@/core";
+import type { ImageCell, MediaItem, MediaResponse } from "@/core";
+import { getImageUrl, TRENDING_ENDPOINT } from "@/core";
 import { useTmdb } from "@/hooks";
 
 export const TrendingView = () => {
@@ -13,18 +13,16 @@ export const TrendingView = () => {
   const { mediaType } = useParams<{ mediaType: string }>();
   const interval = searchParams.get("interval") || "day";
 
-  const { data } = useTmdb<MoviesResponse | TvsResponse>(`${TRENDING_ENDPOINT}/${mediaType}/${interval}`, { page });
+  const { data } = useTmdb<MediaResponse>(`${TRENDING_ENDPOINT}/${mediaType}/${interval}`, { page });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const gridData = (data?.results ?? []).map((result: any) => ({
+  const gridData: ImageCell[] = (data?.results ?? []).map((result: MediaItem) => ({
     id: result.id,
-    imagePath: result.poster_path,
-    primaryText: result.original_title || result.original_name,
+    imageUrl: getImageUrl(result.poster_path),
+    primaryText: result.original_title || result.name || "Untitled",
   }));
 
   if (!data) {
@@ -51,11 +49,11 @@ export const TrendingView = () => {
         />
       </div>
       <ImageGrid
+        images={gridData}
         onClick={(id) => {
           const mediaNav = mediaType === "movie" ? "credits" : "seasons";
           navigate(`/${mediaType}/${id}/${mediaNav}`);
         }}
-        results={gridData}
       />
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />

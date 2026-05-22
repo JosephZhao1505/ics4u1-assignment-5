@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type SearchType = "movie" | "tv" | "person";
 
 export type Media = "movie" | "tv";
@@ -7,39 +9,33 @@ export type ImageCell = {
   imageUrl: string;
   primaryText?: string;
   secondaryText?: string;
-  showId?: number;
-  seasonId?: number;
-  season?: number;
   media?: Media;
 };
 
-export type MoviesResponse = {
-  results: Array<{
-    id: number;
-    original_title: string;
-    poster_path: string;
-  }>;
-  total_pages: number;
+export type ImageAction = {
+  id: string;
+  icon: (active: boolean) => ReactNode;
+  active: (image: ImageCell) => boolean;
+  onClick: (image: ImageCell) => void;
+  position: "left" | "right";
 };
 
-export type TvsResponse = {
-  results: Array<{
-    id: number;
-    name: string;
-    poster_path: string;
-  }>;
-  total_pages: number;
+export type MediaItem = {
+  id: number;
+  poster_path: string;
+  original_title?: string;
+  name?: string;
 };
 
 export type MediaResponse = {
-  id: number;
-  overview: string;
+  results: MediaItem[];
+  title: string;
+  name: string;
   poster_path: string;
+  overview: string;
   backdrop_path: string;
   vote_average: number;
-  title?: string;
   release_date?: string;
-  name?: string;
   first_air_date?: string;
   number_of_seasons?: number;
   number_of_episodes?: number;
@@ -50,6 +46,7 @@ export type MediaResponse = {
     poster_path: string;
     season_number: number;
   }>;
+  total_pages: number;
   videos?: {
     results: Array<{
       key: string;
@@ -77,7 +74,7 @@ export type CreditsResponse = {
   cast: Array<{
     id: number;
     name: string;
-    profile_path: string | null;
+    profile_path: string;
     character: string;
   }>;
 };
@@ -101,6 +98,7 @@ export type TrailersResponse = {
 
 export type SearchResponse = {
   results: Array<{
+    original_title: string | undefined;
     id: number;
     name?: string;
     title?: string;

@@ -51,6 +51,16 @@ export const Header = () => {
             value={type}
           />
         </div>
+
+        <div className="hidden flex-1 lg:block">
+          <LinkGroup
+            options={[
+              { label: "Favorites", to: "/favorites" },
+              { label: "Cart", to: "/cart" },
+              { label: "Settings", to: "/settings" },
+            ]}
+          />
+        </div>
       </nav>
     </header>
   );

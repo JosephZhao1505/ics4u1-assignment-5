@@ -1,5 +1,5 @@
 import { HiFilm, HiFire } from "react-icons/hi";
-import { HiRectangleGroup, HiTv } from "react-icons/hi2";
+import { HiMiniCog6Tooth, HiMiniHeart, HiMiniShoppingBag, HiRectangleGroup, HiTv } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "@/components";
 
@@ -11,6 +11,9 @@ export const HomeView = () => {
     { icon: <HiTv className="h-10 w-10" />, label: "TV", path: "/tv/airing-today" },
     { icon: <HiFire className="h-10 w-10" />, label: "Trending", path: "/trending/movie?interval=day" },
     { icon: <HiRectangleGroup className="h-10 w-10" />, label: "Genres", path: "/genre/movie/action" },
+    { icon: <HiMiniHeart className="h-10 w-10" />, label: "Favorites", path: "/favorites" },
+    { icon: <HiMiniShoppingBag className="h-10 w-10" />, label: "Cart", path: "/cart" },
+    { icon: <HiMiniCog6Tooth className="h-10 w-10" />, label: "Settings", path: "/settings" },
   ];
 
   return (
