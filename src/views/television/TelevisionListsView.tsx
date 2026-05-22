@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Footer, ImageGrid, LinkGroup, Pagination } from "@/components";
-import type { MediaResponse } from "@/core";
-import { getImageUrl, TELEVISION_ENDPOINT } from "@/core";
-import { useTmdb } from "@/hooks";
+import { Footer, ImageGrid, ImageOverlay, LinkGroup, Pagination } from "@/components";
+import type { ImageCell, MediaResponse } from "@/core";
+import { favoriteAction, getImageUrl, TELEVISION_ENDPOINT } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 export const TelevisionListsView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const { listType } = useParams<{ listType: string }>();
 
   const list = listType || "airing-today";
@@ -43,7 +44,11 @@ export const TelevisionListsView = () => {
           ]}
         />
       </div>
-      <ImageGrid images={gridData} onClick={(image) => navigate(`/tv/${image.id}/seasons`)} />
+      <ImageGrid images={gridData} onClick={(image) => navigate(`/tv/${image.id}/seasons`)}>
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
+        )}
+      </ImageGrid>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />
     </section>

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ButtonGroup, Footer, ImageGrid, LinkGroup, Pagination } from "@/components";
+import { ButtonGroup, Footer, ImageGrid, ImageOverlay, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, MediaItem, MediaResponse } from "@/core";
-import { getImageUrl, TRENDING_ENDPOINT } from "@/core";
-import { useTmdb } from "@/hooks";
+import { favoriteAction, getImageUrl, TRENDING_ENDPOINT } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 export const TrendingView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { mediaType } = useParams<{ mediaType: string }>();
@@ -50,11 +51,15 @@ export const TrendingView = () => {
       </div>
       <ImageGrid
         images={gridData}
-        onClick={(id) => {
+        onClick={(image) => {
           const mediaNav = mediaType === "movie" ? "credits" : "seasons";
-          navigate(`/${mediaType}/${id}/${mediaNav}`);
+          navigate(`/${mediaType}/${image.id}/${mediaNav}`);
         }}
-      />
+      >
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
+        )}
+      </ImageGrid>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />
     </section>
