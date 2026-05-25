@@ -15,7 +15,6 @@ export const SummaryView = () => {
 
   const isMovie = mediaType === "movie";
 
-  // Helper to format currency
   const formatCurrency = (amount?: number) => {
     if (!amount) return "N/A";
     return new Intl.NumberFormat("en-US", {
@@ -25,7 +24,6 @@ export const SummaryView = () => {
     }).format(amount);
   };
 
-  // Extract common display values based on media type
   const releaseDate = isMovie ? data.release_date : data.first_air_date;
 
   const runtime = isMovie ? data.runtime : data.episode_run_time && data.episode_run_time.length > 0 ? data.episode_run_time[0] : null;

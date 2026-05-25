@@ -13,10 +13,9 @@ export const Modal = ({ onClose, children }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className="relative mx-4 my-4 flex max-h-[92vh] w-full max-w-[50vw] flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.7)]"
+        className="relative mx-4 my-4 flex max-h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.7)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Sleeker, contextual close button */}
         <button
           className="absolute top-4 right-4 z-50 rounded-full border border-slate-700/60 bg-slate-950/60 p-2 text-slate-400 backdrop-blur-sm transition-all hover:bg-slate-800 hover:text-slate-100"
           onClick={onClose}

@@ -9,14 +9,11 @@ export const FavoritesView = () => {
   const { mediaType } = useParams();
   const { favorites, toggleFavorite } = useUserContext();
 
-  // Filter favorites based on the active route parameter (movie or tv)
   const filteredFavorites = useMemo(() => {
-    // [!code ++]
-    const allFavorites = Array.from(favorites.values()); // [!code ++]
-    if (!mediaType) return allFavorites; // Fallback if no mediaType is in the URL // [!code ++]
-    // [!code ++]
-    return allFavorites.filter((item) => item.media?.type === mediaType); // [!code ++]
-  }, [favorites, mediaType]); // [!code ++]
+    const allFavorites = Array.from(favorites.values());
+    if (!mediaType) return allFavorites;
+    return allFavorites.filter((item) => item.media === mediaType);
+  }, [favorites, mediaType]);
 
   return (
     <section className="mx-auto max-w-7xl space-y-5 p-5">
@@ -27,13 +24,10 @@ export const FavoritesView = () => {
           { label: "TV", to: "/favorites/tv" },
         ]}
       />
-      {/* Check length of filtered results instead of the whole Set */}
-      {filteredFavorites.length === 0 ? ( // [!code linenum:24]
+      {filteredFavorites.length === 0 ? ( 
         <p className="mt-10 text-gray-400">You have no favorites yet.</p>
       ) : (
         <ImageGrid images={filteredFavorites} onClick={(image) => navigate(`/${mediaType}/${image.id}/summary`)}>
-          {" "}
-          {/* [!code linenum:27] */}
           {(image) => (
             <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
           )}
