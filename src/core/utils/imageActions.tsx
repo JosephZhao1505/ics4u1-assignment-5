@@ -1,11 +1,11 @@
 import { BsCart2, BsCartFill } from "react-icons/bs";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import { ICON_SIZE, type ImageAction, type ImageCell } from "@/core";
 
 export const favoriteAction = (isFavorite: (image: ImageCell) => boolean, onToggleFavorite: (image: ImageCell) => void): ImageAction => ({
   active: isFavorite,
   icon: (active) =>
-    active ? <FaHeart className="text-blue-500" size={ICON_SIZE} /> : <FaRegHeart className="text-white" size={ICON_SIZE} />,
+    active ? <HiHeart className="text-blue-500" size={ICON_SIZE} /> : <HiOutlineHeart className="text-white" size={ICON_SIZE} />,
   id: "favorite",
   onClick: onToggleFavorite,
   position: "left",

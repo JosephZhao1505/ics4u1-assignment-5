@@ -1,3 +1,3 @@
 export const CartView = () => {
-  return <div>CartView</div>;
+  return "in progress";
 };

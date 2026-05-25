@@ -11,13 +11,14 @@ import {
   HomeView,
   ImagesView,
   LandingPageView,
+  MediaView,
   MovieListsView,
-  MovieView,
   PersonView,
   ReviewsView,
   SearchView,
   SeasonsView,
   SettingsView,
+  SummaryView,
   TelevisionListsView,
   TrailersView,
   TrendingView,
@@ -29,7 +30,7 @@ export const App = () => {
       <Route element={<LandingPageView />} path="/" />
       <Route element={<MainLayout />}>
         <Route element={<HomeView />} path="/home" />
-        <Route element={<FavoritesView />} path="/favorites" />
+        <Route element={<FavoritesView />} path="/favorites/:mediaType" />
         <Route element={<CartView />} path="/cart" />
         <Route element={<SettingsView />} path="/settings" />
         <Route element={<MovieListsView />} path="/movies/:listType" />
@@ -37,7 +38,8 @@ export const App = () => {
         <Route element={<TrendingView />} path="/trending/:mediaType" />
         <Route element={<GenreView />} path="/genre/:mediaType/:genre" />
         <Route element={<SearchView />} path="/search" />
-        <Route element={<MovieView />} path="/:mediaType/:id">
+        <Route element={<MediaView />} path="/:mediaType/:id">
+          <Route element={<SummaryView />} path="summary" />
           <Route element={<CreditsView />} path="credits" />
           <Route element={<ReviewsView />} path="reviews" />
           <Route element={<TrailersView />} path="trailers" />

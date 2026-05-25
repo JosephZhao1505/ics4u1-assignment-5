@@ -24,7 +24,7 @@ export const CareerView = () => {
     <section className="px-2">
       <h2 className="mb-6 font-bold text-2xl">Career</h2>
       {data.cast.length ? (
-        <ImageGrid images={gridData} onClick={(image) => navigate(`/movie/${image.id}/credits`)} />
+        <ImageGrid images={gridData} onClick={(image) => navigate(`/movie/${image.id}/summary`)} />
       ) : (
         <p className="text-center text-gray-400">No career available.</p>
       )}

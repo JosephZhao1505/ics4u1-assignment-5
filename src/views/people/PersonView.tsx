@@ -44,7 +44,9 @@ export const PersonView = () => {
                 </div>
                 <div className="flex items-center gap-3 text-slate-400">
                   <FaBirthdayCake className="shrink-0 text-indigo-500" />
-                  <span className="text-sm">{data.birthday}</span>
+                  <span className="text-sm">
+                    {new Date(data.birthday).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}
+                  </span>
                 </div>
               </div>
             </div>

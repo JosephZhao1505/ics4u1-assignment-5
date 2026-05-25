@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Footer, ImageGrid, ImageOverlay, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, MediaResponse } from "@/core";
@@ -12,7 +12,7 @@ export const TelevisionListsView = () => {
   const { listType } = useParams<{ listType: string }>();
 
   const list = listType || "airing-today";
-  const formattedList = list.replace("-", "_");
+  const formattedList = list.replaceAll("-", "_");
 
   const { data } = useTmdb<MediaResponse>(`${TELEVISION_ENDPOINT}/${formattedList}`, { page });
 
@@ -20,13 +20,11 @@ export const TelevisionListsView = () => {
     setPage(1);
   }, []);
 
-  const gridData = useMemo(() => {
-    return (data?.results ?? []).map((result) => ({
-      id: result.id,
-      imageUrl: getImageUrl(result.poster_path),
-      primaryText: result.name,
-    }));
-  }, [data?.results]);
+  const gridData: ImageCell[] = (data?.results ?? []).map((result) => ({
+    id: result.id,
+    imageUrl: getImageUrl(result.poster_path),
+    primaryText: result.name,
+  }));
 
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -44,7 +42,7 @@ export const TelevisionListsView = () => {
           ]}
         />
       </div>
-      <ImageGrid images={gridData} onClick={(image) => navigate(`/tv/${image.id}/seasons`)}>
+      <ImageGrid images={gridData} onClick={(image) => navigate(`/tv/${image.id}/summary`)}>
         {(image) => (
           <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
         )}

@@ -28,17 +28,31 @@ export type MediaItem = {
 };
 
 export type MediaResponse = {
+  id: number;
   results: MediaItem[];
-  title: string;
-  name: string;
+  title?: string; // Movies
+  name?: string; // TV Shows
   poster_path: string;
-  overview: string;
   backdrop_path: string;
+  overview: string;
+  tagline?: string;
+  genres: Array<{ id: number; name: string }>;
   vote_average: number;
+  vote_count: number;
+  status: string;
+
+  // Movie specific
   release_date?: string;
+  runtime?: number;
+  budget?: number;
+  revenue?: number;
+
+  // TV specific
   first_air_date?: string;
   number_of_seasons?: number;
   number_of_episodes?: number;
+  episode_run_time?: number[];
+
   seasons?: Array<{
     id: number;
     name: string;

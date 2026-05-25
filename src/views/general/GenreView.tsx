@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Footer, ImageGrid, Link, LinkGroup, Pagination } from "@/components";
+import { Footer, ImageGrid, ImageOverlay, Link, LinkGroup, Pagination } from "@/components";
 import type { ImageCell, MediaItem, MediaResponse } from "@/core";
-import { DISCOVER_ENDPOINT, getImageUrl } from "@/core";
-import { useTmdb } from "@/hooks";
+import { DISCOVER_ENDPOINT, favoriteAction, getImageUrl } from "@/core";
+import { useTmdb, useUserContext } from "@/hooks";
 
 const MOVIE_GENRES = [
   { id: 28, name: "Action" },
@@ -34,6 +34,7 @@ const TV_GENRES = [
 export const GenreView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
+  const { favorites, toggleFavorite } = useUserContext();
   const { mediaType } = useParams<{ mediaType: string }>();
   const { genre } = useParams<{ genre: string }>();
   const genres = mediaType === "movie" ? MOVIE_GENRES : TV_GENRES;
@@ -74,11 +75,14 @@ export const GenreView = () => {
       />
       <ImageGrid
         images={gridData}
-        onClick={(id) => {
-          const firstTab = mediaType === "movie" ? "credits" : "seasons";
-          navigate(`/${mediaType}/${id}/${firstTab}`);
+        onClick={(image) => {
+          navigate(`/${mediaType}/${image.id}/summary`);
         }}
-      />
+      >
+        {(image) => (
+          <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
+        )}
+      </ImageGrid>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />
     </section>

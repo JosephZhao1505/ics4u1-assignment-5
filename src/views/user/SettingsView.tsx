@@ -5,7 +5,7 @@ import { useUserContext } from "@/hooks";
 export const SettingsView = () => {
   const { userName, setUserName } = useUserContext();
   const [value, setValue] = useState(userName);
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState<{ text: string; color: string } | null>(null);
 
   return (
     <section className="mx-auto max-w-7xl space-y-5 p-5">
@@ -21,16 +21,16 @@ export const SettingsView = () => {
             className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(event) => {
               setValue(event.target.value);
-              setError("");
+              setMessage(null);
             }}
             placeholder="Enter your name"
             type="text"
             value={value}
           />
-          {error && <p className="text-red-400 text-sm">{error}</p>}
+          {message && <p className={`text-sm ${message.color}`}>{message.text}</p>}
         </div>
         <div className="flex justify-end gap-2">
-          <Button onClick={() => setValue(userName)} variant="secondary">
+          <Button onClick={() => setValue(userName)} variant="caution">
             Reset
           </Button>
           <Button
@@ -38,11 +38,13 @@ export const SettingsView = () => {
               const trimmed = value.trim();
 
               if (!trimmed) {
-                setError("Username cannot be empty");
+                setMessage({ color: "text-red-500", text: "Username cannot be empty" });
                 return;
+              } else if (value.length > 20) {
+                setMessage({ color: "text-red-500", text: "Username too long" });
               } else {
                 setUserName(trimmed);
-                setError("");
+                setMessage({ color: "text-green-500", text: "Username updated successfully" });
               }
             }}
           >

@@ -52,8 +52,7 @@ export const TrendingView = () => {
       <ImageGrid
         images={gridData}
         onClick={(image) => {
-          const mediaNav = mediaType === "movie" ? "credits" : "seasons";
-          navigate(`/${mediaType}/${image.id}/${mediaNav}`);
+          navigate(`/${mediaType}/${image.id}/summary`);
         }}
       >
         {(image) => (

@@ -39,7 +39,7 @@ export const MovieListsView = () => {
           ]}
         />
       </div>
-      <ImageGrid images={gridData} onClick={(image) => navigate(`/movie/${image.id}/credits`)}>
+      <ImageGrid images={gridData} onClick={(image) => navigate(`/movie/${image.id}/summary`)}>
         {(image) => (
           <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
         )}
