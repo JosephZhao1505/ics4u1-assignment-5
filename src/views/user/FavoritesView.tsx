@@ -12,6 +12,7 @@ export const FavoritesView = () => {
   const filteredFavorites = useMemo(() => {
     const allFavorites = Array.from(favorites.values());
     if (!mediaType) return allFavorites;
+    console.log(allFavorites)
     return allFavorites.filter((item) => item.media === mediaType);
   }, [favorites, mediaType]);
 
@@ -24,7 +25,7 @@ export const FavoritesView = () => {
           { label: "TV", to: "/favorites/tv" },
         ]}
       />
-      {filteredFavorites.length === 0 ? ( 
+      {filteredFavorites.length === 0 ? (
         <p className="mt-10 text-gray-400">You have no favorites yet.</p>
       ) : (
         <ImageGrid images={filteredFavorites} onClick={(image) => navigate(`/${mediaType}/${image.id}/summary`)}>
