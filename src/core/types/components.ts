@@ -25,6 +25,7 @@ export type MediaItem = {
   poster_path: string;
   original_title?: string;
   name?: string;
+  media?: Media;
 };
 
 export type MediaResponse = {
