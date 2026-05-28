@@ -12,7 +12,7 @@ export const FavoritesView = () => {
   const filteredFavorites = useMemo(() => {
     const allFavorites = Array.from(favorites.values());
     if (!mediaType) return allFavorites;
-    console.log(allFavorites)
+    console.log(allFavorites);
     return allFavorites.filter((item) => item.media === mediaType);
   }, [favorites, mediaType]);
 

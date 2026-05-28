@@ -60,6 +60,7 @@ export type MediaResponse = {
     air_date?: string;
     poster_path: string;
     season_number: number;
+    media?: string;
   }>;
   total_pages: number;
   videos?: {
