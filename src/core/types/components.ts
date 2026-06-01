@@ -10,6 +10,7 @@ export type ImageCell = {
   primaryText?: string;
   secondaryText?: string;
   media?: Media;
+  price?: number;
 };
 
 export type ImageAction = {

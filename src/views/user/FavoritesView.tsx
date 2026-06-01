@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ImageGrid, ImageOverlay, LinkGroup } from "@/components";
+import { Button, ImageGrid, ImageOverlay, LinkGroup } from "@/components";
 import { favoriteAction, type ImageCell } from "@/core";
 import { useUserContext } from "@/hooks";
 
 export const FavoritesView = () => {
   const navigate = useNavigate();
   const { mediaType } = useParams();
-  const { favorites, toggleFavorite } = useUserContext();
+  const { favorites, toggleFavorite, clearFavorites } = useUserContext();
 
   const filteredFavorites = useMemo(() => {
     const allFavorites = Array.from(favorites.values());
@@ -19,7 +19,7 @@ export const FavoritesView = () => {
   return (
     <section className="mx-auto max-w-7xl space-y-5 p-5">
       <h1 className="font-bold text-3xl">Favorites</h1>
-      <button>Clear</button>
+      <Button onClick={() => clearFavorites()}>Clear cart</Button>
       <LinkGroup
         options={[
           { label: "Movies", to: "/favorites/movie" },

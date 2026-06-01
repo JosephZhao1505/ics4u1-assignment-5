@@ -17,16 +17,16 @@ export const MovieListsView = () => {
     setPage(1);
   }, []);
 
+  if (!data) {
+    return <p className="text-center text-gray-400">Loading...</p>;
+  }
+
   const gridData: ImageCell[] = (data?.results ?? []).map((result: MediaItem) => ({
     id: result.id,
     imageUrl: getImageUrl(result.poster_path),
     media: "movie",
     primaryText: result.original_title,
   }));
-
-  if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
-  }
 
   return (
     <section className="mx-auto max-w-300 space-y-5 p-5">

@@ -1,14 +1,15 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { LinkGroup, Modal } from "@/components";
-import type { MediaResponse } from "@/core";
+import { Button, LinkGroup, Modal } from "@/components";
+import type { ImageCell, MediaResponse } from "@/core";
 import { IMAGE_BASE_URL, MOVIE_ENDPOINT, ORIGINAL_IMAGE_BASE_URL, TELEVISION_ENDPOINT } from "@/core";
-import { useTmdb } from "@/hooks";
+import { useTmdb, useUserContext } from "@/hooks";
 
 export const MediaView = () => {
   const navigate = useNavigate();
   const { mediaType, id } = useParams();
   const endpoint = mediaType === "movie" ? `${MOVIE_ENDPOINT}/${id}` : `${TELEVISION_ENDPOINT}/${id}`;
   const { data } = useTmdb<MediaResponse>(endpoint, {});
+  const { cart, toggleCart } = useUserContext();
   let priceDisplay = null;
 
   if (!data) {
@@ -27,6 +28,14 @@ export const MediaView = () => {
 
     priceDisplay = Math.max(finalPrice, floorPrice);
   }
+
+  const mediaCell: ImageCell = {
+    id: data.id,
+    imageUrl: `${IMAGE_BASE_URL}${data.poster_path}`,
+    media: mediaType as "movie" | "tv",
+    price: priceDisplay ?? undefined,
+    primaryText: data.title ?? data.name,
+  };
 
   return (
     <Modal onClose={() => navigate(-1)}>
@@ -49,7 +58,9 @@ export const MediaView = () => {
 
               <div className="flex shrink-0 flex-col items-end">
                 {!priceDisplay ? "" : <p className="mb-2 font-bold text-3xl">${priceDisplay.toFixed(2)}</p>}
-                {/* button here */}
+                {mediaType === "movie" && (
+                  <Button onClick={() => toggleCart(mediaCell)}>{cart.has(mediaCell.id) ? "Remove from cart" : "Add to cart"}</Button>
+                )}
               </div>
             </div>
 

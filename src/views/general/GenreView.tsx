@@ -25,6 +25,7 @@ export const GenreView = () => {
   const gridData: ImageCell[] = (data?.results ?? []).map((result: MediaItem) => ({
     id: result.id,
     imageUrl: getImageUrl(result.poster_path),
+    media: "movie",
     primaryText: result.original_title || result.name || "Untitled",
   }));
 
@@ -58,9 +59,13 @@ export const GenreView = () => {
           navigate(`/${mediaType}/${image.id}/summary`);
         }}
       >
-        {(image) => (
-          <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
-        )}
+        {(image) =>
+          mediaType === "movie" ? (
+            <ImageOverlay actions={[favoriteAction((image: ImageCell) => favorites.has(image.id), toggleFavorite)]} image={image} />
+          ) : (
+            ""
+          )
+        }
       </ImageGrid>
       <Pagination maxPages={data.total_pages} onClick={setPage} page={page} />
       <Footer />

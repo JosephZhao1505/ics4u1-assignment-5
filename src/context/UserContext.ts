@@ -9,6 +9,8 @@ export type UserContextType = {
   setUserName: (userName: string) => void;
   toggleFavorite: (item: ImageCell) => void;
   toggleCart: (item: ImageCell) => void;
+  clearCart: () => void;
+  clearFavorites: () => void;
   setPreferredGenres: (genres: GenrePreferences) => void;
 };
 
