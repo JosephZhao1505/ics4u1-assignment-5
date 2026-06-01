@@ -11,9 +11,8 @@ export const CartView = () => {
   const cartItems = useMemo(() => Array.from(cart.values()), [cart]);
 
   const subtotal = useMemo(
-    () =>
-      cartItems.reduce((sum, item) => sum + ((item.media === "movie" && typeof item.price === "number") ? item.price : 0), 0),
-    [cartItems]
+    () => cartItems.reduce((sum, item) => sum + (item.media === "movie" && typeof item.price === "number" ? item.price : 0), 0),
+    [cartItems],
   );
 
   const tax = useMemo(() => subtotal * 0.13, [subtotal]);
