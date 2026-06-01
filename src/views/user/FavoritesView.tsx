@@ -1,4 +1,4 @@
-import { useMemo } from "react"; // [!code ++]
+import { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ImageGrid, ImageOverlay, LinkGroup } from "@/components";
 import { favoriteAction, type ImageCell } from "@/core";
@@ -19,6 +19,7 @@ export const FavoritesView = () => {
   return (
     <section className="mx-auto max-w-7xl space-y-5 p-5">
       <h1 className="font-bold text-3xl">Favorites</h1>
+      <button>Clear</button>
       <LinkGroup
         options={[
           { label: "Movies", to: "/favorites/movie" },

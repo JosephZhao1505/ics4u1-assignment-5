@@ -8,7 +8,7 @@ export const favoriteAction = (isFavorite: (image: ImageCell) => boolean, onTogg
     active ? <HiHeart className="text-blue-500" size={ICON_SIZE} /> : <HiOutlineHeart className="text-white" size={ICON_SIZE} />,
   id: "favorite",
   onClick: onToggleFavorite,
-  position: "left",
+  position: "right",
 });
 
 export const cartAction = (isInCart: (image: ImageCell) => boolean, onToggleCart: (image: ImageCell) => void): ImageAction => ({
@@ -17,5 +17,5 @@ export const cartAction = (isInCart: (image: ImageCell) => boolean, onToggleCart
     active ? <BsCartFill className="text-blue-500" size={ICON_SIZE} /> : <BsCart2 className="text-white" size={ICON_SIZE} />,
   id: "cart",
   onClick: onToggleCart,
-  position: "right",
+  position: "left",
 });

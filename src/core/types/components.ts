@@ -149,3 +149,8 @@ export type PersonCareerResponse = {
     poster_path: string;
   }>;
 };
+
+export type GenrePreferences = {
+  movies: number[];
+  tvs: number[];
+};

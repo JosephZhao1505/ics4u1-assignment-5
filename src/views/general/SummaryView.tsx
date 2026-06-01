@@ -30,15 +30,12 @@ export const SummaryView = () => {
 
   return (
     <section className="dynamic-fade-in animate-fade-in space-y-6 text-gray-300">
-      {/* Overview */}
       <div className="space-y-2">
         <h3 className="font-semibold text-white text-xl">Storyline</h3>
         <p className="text-base text-gray-400 leading-relaxed">{data.overview || "No overview available for this title."}</p>
       </div>
 
-      {/* Quick Stats Grid */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {/* Rating */}
         <div className="flex items-center gap-3 rounded-xl border border-gray-800/60 bg-gray-900/50 p-4">
           <FaStar className="h-5 w-5 text-amber-500" />
           <div>
@@ -50,7 +47,6 @@ export const SummaryView = () => {
           </div>
         </div>
 
-        {/* Runtime */}
         <div className="flex items-center gap-3 rounded-xl border border-gray-800/60 bg-gray-900/50 p-4">
           <FaClock className="h-5 w-5 text-indigo-400" />
           <div>
@@ -59,7 +55,6 @@ export const SummaryView = () => {
           </div>
         </div>
 
-        {/* Release / Air Date */}
         <div className="flex items-center gap-3 rounded-xl border border-gray-800/60 bg-gray-900/50 p-4">
           <FaCalendarAlt className="h-5 w-5 text-emerald-400" />
           <div>
@@ -72,7 +67,6 @@ export const SummaryView = () => {
           </div>
         </div>
 
-        {/* Status */}
         <div className="flex items-center gap-3 rounded-xl border border-gray-800/60 bg-gray-900/50 p-4">
           {isMovie ? <FaFilm className="h-5 w-5 text-sky-400" /> : <FaTv className="h-5 w-5 text-sky-400" />}
           <div>
@@ -82,7 +76,6 @@ export const SummaryView = () => {
         </div>
       </div>
 
-      {/* Genres & Meta Info */}
       <div className="flex flex-wrap gap-6 pt-2">
         <div className="space-y-2">
           <h4 className="font-medium text-gray-500 text-xs uppercase tracking-wider">Genres</h4>
@@ -98,7 +91,6 @@ export const SummaryView = () => {
           </div>
         </div>
 
-        {/* TV Specific Sub-data: Seasons & Episodes Counter */}
         {!isMovie && (data.number_of_seasons || data.number_of_episodes) && (
           <div className="flex gap-6">
             {data.number_of_seasons && (
@@ -117,7 +109,6 @@ export const SummaryView = () => {
         )}
       </div>
 
-      {/* Movie Financial Details Box */}
       {isMovie && ((data.budget ?? 0) > 0 || (data.revenue ?? 0) > 0) && (
         <div className="mt-4 border-gray-800/60 border-t pt-6">
           <div className="grid grid-cols-1 gap-4 rounded-xl border border-gray-900 bg-gray-950/40 p-4 sm:grid-cols-2">
